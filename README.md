@@ -13,3 +13,17 @@ The issue lies in the beq instruction used to check if the sum is correct. The b
 
 ## Explanation of the fix
 To fix the bug, the beq instruction is replaced with a conditional branch to the test_end label when the sum is correct. We can use the bne (branch if not equal) instruction to achieve this. With this change, the code will properly jump to test_end when the sum is correct, and the test will pass as seen in the spike log. 
+
+# Challenge_level3_illegal details: 
+
+## Bug explanation with screenshot
+The bug is lies in the order of the instructions. The problem is that the TEST_PASSFAIL directive is placed after the j fail instruction, so the test will always jump to the fail label and not execute the TEST_PASSFAIL directive. 
+
+<img width="930" alt="image2" src="https://github.com/vyomasystems-lab/riscv-ctb-challenge-inderjit303/assets/99788755/9d7bf83a-9e94-49c1-8082-0c9c89b546f7">
+
+
+## Screenshot of the fix 
+<img width="930" alt="image3" src="https://github.com/vyomasystems-lab/riscv-ctb-challenge-inderjit303/assets/99788755/df29c885-ac23-48ef-884b-173d1e172f55">
+
+## Explanation of the fix
+To fix the issue, move the TEST_PASSFAIL directive above the jump instruction. With this change, the program will first set the TESTNUM register to 2, then execute the TEST_PASSFAIL directive, and finally jump to the fail label if an illegal instruction is encountered
